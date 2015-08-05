@@ -71,7 +71,7 @@ defmodule Lodestone do
         "size" : {"width" : 200, "height" : 200},
         "panelsize": {"width" : 200, "height" : 60000},
         "scrollable" : { "horizontal" : 1, "vertical" : 1},
-        "components" : [
+        "children" : [
           #{roster}
         ]
     }
