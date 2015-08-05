@@ -33,4 +33,50 @@ defmodule Lodestone do
     |> Enum.map(&(get_page_data &1))
     |> Enum.reduce(fn(x, acc) -> acc = x ++ acc end)
   end
+
+  def roster_to_json([], num_elems) do
+    """
+    {
+      "type" : "KTLabel",
+      "id" : "END",
+      "location" : { "x" : 0, "y": #{num_elems *  123}, "z" : 3},
+      "size" : {"width" : 123, "height" : 123},
+    }
+    """
+  end
+
+  def roster_to_json([head | tail], num_elems) do
+    {name, rank} = head
+    json = """
+    {
+      "type" : "KTButton",
+      "id" : "#{name} #{rank}",
+      "location" : { "x" : 0, "y": #{num_elems *  123}, "z" : 3},
+      "size" : {"width" : 123, "height" : 123},
+    },
+    """
+    json <> roster_to_json(tail, num_elems + 1)
+  end
+
+  def get_freecompany_data_as_kurt(fc_id) do
+    roster = get_freecompany_data(fc_id)
+             |> roster_to_json(0)
+
+    json = """
+    {
+    "ui" : [
+    {
+        "type" : "KTScrollView",
+        "location" : { "x" : 520, "y": 218, "z" : 3},
+        "size" : {"width" : 200, "height" : 200},
+        "panelsize": {"width" : 200, "height" : 60000},
+        "scrollable" : { "horizontal" : 1, "vertical" : 1},
+        "components" : [
+          #{roster}
+        ]
+    }
+    ]
+    }
+    """
+  end
 end

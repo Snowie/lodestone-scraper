@@ -28,6 +28,7 @@ defmodule Lodestone.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [{:httpoison, "~> 0.7"},
+    {:poison, "~> 1.4.0"},
     {:floki, "~> 0.3"}
     ]
   end
