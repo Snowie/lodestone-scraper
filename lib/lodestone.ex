@@ -31,7 +31,7 @@ defmodule Lodestone do
   def get_freecompany_data(fc_id) do
     generate_pages("http://na.finalfantasyxiv.com/lodestone/freecompany/#{fc_id}/member/")
     |> Enum.map(&(get_page_data &1))
-    |> Enum.reduce(fn(x, acc) -> acc = x ++ acc end)
+    |> Enum.reduce(fn(x, acc) -> acc = acc ++ x end)
   end
 
   @doc ~S"""
@@ -66,15 +66,22 @@ defmodule Lodestone do
 
   def get_freecompany_data_as_kurt(fc_id) do
     roster = get_freecompany_data(fc_id)
+             #|> Enum.reverse
              |> roster_to_json(0)
 
     json = """
     {
       "ui" : [
         {
+          "type" : "KTLabel",
+          "location" : {"x" : 0, "y" : 0, "z", 3},
+          "size" : {"width" : 123, "height": 123},
+          "id" : "v ROSTER v"
+        },
+        {
           "type" : "KTScrollView",
-          "location" : { "x" : 520, "y": 218, "z" : 3},
-          "size" : {"width" : 200, "height" : 200},
+          "location" : { "x" : 0, "y": 0, "z" : 3},
+          "size" : {"width" : 123, "height" : 339},
           "panelsize": {"width" : 200, "height" : 60000},
           "scrollable" : { "horizontal" : 1, "vertical" : 1},
           "children" : [
