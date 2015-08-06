@@ -34,6 +34,12 @@ defmodule Lodestone do
     |> Enum.reduce(fn(x, acc) -> acc = x ++ acc end)
   end
 
+  @doc ~S"""
+  Ends the json list of elements
+  ## Examples
+    iex> Lodestone.roster_to_json([], 0)
+    "{\n  \"type\" : \"KTLabel\",\n  \"id\" : \"END\",\n  \"location\" : { \"x\" : 0, \"y\": 0, \"z\" : 3},\n  \"size\" : {\"width\" : 123, \"height\" : 123},\n}\n"
+  """
   def roster_to_json([], num_elems) do
     """
     {
@@ -64,18 +70,18 @@ defmodule Lodestone do
 
     json = """
     {
-    "ui" : [
-    {
-        "type" : "KTScrollView",
-        "location" : { "x" : 520, "y": 218, "z" : 3},
-        "size" : {"width" : 200, "height" : 200},
-        "panelsize": {"width" : 200, "height" : 60000},
-        "scrollable" : { "horizontal" : 1, "vertical" : 1},
-        "children" : [
-          #{roster}
-        ]
-    }
-    ]
+      "ui" : [
+        {
+          "type" : "KTScrollView",
+          "location" : { "x" : 520, "y": 218, "z" : 3},
+          "size" : {"width" : 200, "height" : 200},
+          "panelsize": {"width" : 200, "height" : 60000},
+          "scrollable" : { "horizontal" : 1, "vertical" : 1},
+          "children" : [
+            #{roster}
+          ]
+        }
+      ]
     }
     """
   end

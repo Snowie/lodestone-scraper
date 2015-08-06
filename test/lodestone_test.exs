@@ -1,7 +1,7 @@
 defmodule LodestoneTest do
   use ExUnit.Case
 
-  doctest Universe.GitHub
+  doctest Lodestone
 
   test "the truth" do
     assert 1 + 1 == 2
