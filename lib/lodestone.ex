@@ -38,7 +38,7 @@ defmodule Lodestone do
   Ends the json list of elements
   ## Examples
     iex> Lodestone.roster_to_json([], 0)
-    "{\n  \"type\" : \"KTLabel\",\n  \"id\" : \"END\",\n  \"location\" : { \"x\" : 0, \"y\": 0, \"z\" : 3},\n  \"size\" : {\"width\" : 123, \"height\" : 123},\n}\n"
+    "{\n  \"type\" : \"KTLabel\",\n  \"id\" : \"END\",\n  \"location\" : { \"x\" : 0, \"y\": 0, \"z\" : 3},\n  \"size\" : {\"width\" : 123, \"height\" : 123}\n}\n"
   """
   def roster_to_json([], num_elems) do
     """
@@ -46,7 +46,7 @@ defmodule Lodestone do
       "type" : "KTLabel",
       "id" : "END",
       "location" : { "x" : 0, "y": #{num_elems *  123}, "z" : 3},
-      "size" : {"width" : 123, "height" : 123},
+      "size" : {"width" : 123, "height" : 123}
     }
     """
   end
@@ -58,7 +58,7 @@ defmodule Lodestone do
       "type" : "KTButton",
       "id" : "#{name} #{rank}",
       "location" : { "x" : 0, "y": #{num_elems *  123}, "z" : 3},
-      "size" : {"width" : 123, "height" : 123},
+      "size" : {"width" : 123, "height" : 123}
     },
     """
     json <> roster_to_json(tail, num_elems + 1)
@@ -66,28 +66,47 @@ defmodule Lodestone do
 
   def get_freecompany_data_as_kurt(fc_id) do
     roster = get_freecompany_data(fc_id)
-             #|> Enum.reverse
              |> roster_to_json(0)
 
     json = """
     {
       "ui" : [
-        {
-          "type" : "KTLabel",
-          "location" : {"x" : 0, "y" : 0, "z", 3},
-          "size" : {"width" : 123, "height": 123},
-          "id" : "v ROSTER v"
-        },
-        {
-          "type" : "KTScrollView",
-          "location" : { "x" : 0, "y": 0, "z" : 3},
-          "size" : {"width" : 123, "height" : 339},
-          "panelsize": {"width" : 200, "height" : 60000},
-          "scrollable" : { "horizontal" : 1, "vertical" : 1},
-          "children" : [
-            #{roster}
-          ]
-        }
+      {
+        "type" : "KTWidget",
+        "location" : {"x" : 300, "y" : 200, "z" : 0},
+        "size" : {"width" : 123, "height" : 163},
+        "external" : "http://snowie.github.io/kurt/testwidget.html"
+      },
+      {
+        "type" : "KTPanel",
+        "location" : {"x" : 0, "y" : 0, "z" : 0},
+        "size" : {"width" : 123, "height" : 123},
+        "id" : "RosterPanel",
+        "children" : [
+          {
+            "type" : "KTLabel",
+            "location" : {"x" : 0, "y" : 0, "z" : 3},
+            "size" : {"width" : 123, "height": 123},
+            "id" : "v ROSTER v"
+          },
+          {
+            "type" : "KTInputField",
+            "location" : {"x" : 0, "y" : 83, "z": 3},
+            "size" : {"width" : 123, "height" : 40}
+            "id" : "Roster Search"
+          }
+        ]
+      },
+      {
+        "type" : "KTScrollView",
+        "location" : { "x" : 0, "y": 123, "z" : 3},
+        "size" : {"width" : 123, "height" : 339},
+        "panelsize": {"width" : 200, "height" : 60000},
+        "scrollable" : { "horizontal" : 1, "vertical" : 1},
+        "children" : [
+          #{roster}
+        ]
+      }
       ]
     }
     """
