@@ -102,7 +102,7 @@ defmodule Lodestone do
         "location" : { "x" : 0, "y": 123, "z" : 3},
         "size" : {"width" : 123, "height" : 339},
         "panelsize": {"width" : 200, "height" : 60000},
-        "scrollable" : { "horizontal" : 1, "vertical" : 1},
+        "scrollable" : { "horizontal" : false, "vertical" : true},
         "children" : [
           #{roster}
         ]
