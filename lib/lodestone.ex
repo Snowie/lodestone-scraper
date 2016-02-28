@@ -64,6 +64,11 @@ defmodule Lodestone do
     json <> roster_to_json(tail, num_elems + 1)
   end
 
+  def get_freecompany_officers(fc_id) do
+  	get_freecompany_data(fc_id)
+  	|> Enum.filter(fn({name, rank}) -> String.contains?(rank, "-O") end)
+  end
+
   def get_freecompany_data_as_kurt(fc_id) do
     roster = get_freecompany_data(fc_id)
              |> roster_to_json(0)
